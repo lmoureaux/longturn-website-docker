@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+  # The website, running from the source code
+  www:
+    build: ./www
+    command: python -m longturn.manage runserver 0.0.0.0:8000
+    environment:
+      LONGTURN_DATABASES: /home/longturn-www/longturn/databases.json.example # Works for development
+      LONGTURN_DEBUG: 1
+      LONGTURN_SECRET_KEY: secret key # Not very secret
+    volumes:
+      - ./www:/home/longturn-www/longturn
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+
+  # The database
+  db:
+    image: postgres:12.0-alpine
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: longturn
+      POSTGRES_PASSWORD: longturn
+      POSTGRES_DB: longturn
+
+volumes:
+  db-data:
+
