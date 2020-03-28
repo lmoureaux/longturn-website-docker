@@ -4,12 +4,13 @@ This is a `docker-compose` setup to duplicate the http://longturn.net website on
 
 Get the code:
 ```
-git clone --recursive <this repo>
+git clone --recursive https://github.com/lmoureaux/longturn-website-docker.git
+cd longturn-website-docker
 ```
 
 Start the website:
 ```
-docker-compose up
+docker-compose up -d
 ```
 
 The first time you start the website (or after wiping the database), you need to create the superuser:
